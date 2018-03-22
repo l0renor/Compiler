@@ -30,13 +30,20 @@ public class CommentOut implements Preprocessor {
                 }
             }else if(c == '\n' && state == 3) {
                 result.append(c);
-            }else if(state == 3){}
+            }
             else if(c == '*' && state == 3) {
                 state = 4;
-            }
+            }else if(state == 3){}
             else if(c == '/' && state == 4) {
                 state = 0;
                 result.append(' ');
+            }else if (state == 4){
+                if(c == '*'){
+
+
+                }else {
+                    state = 3;
+                }
             }
             else  {
                 result.append(c);
@@ -45,6 +52,9 @@ public class CommentOut implements Preprocessor {
         }
         if(state == 4 || state == 3){
             throw new LexicalError();
+        }
+        if(state == 1){
+            result.append('/');
         }
         return result;
     }
