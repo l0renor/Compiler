@@ -6,7 +6,7 @@ public class MyScanner extends BaseScanner {
     private static String LETTER = "abcdefghijklmnopqrstuvwxyz";
     private static String NUMBER = "0123456789";
     private static String WHITE = " \t\f\n\r";
-    MyScanner(){
+    public MyScanner(){
         start("start");
         //whitespace
         transition("start",WHITE,"whitespace");
@@ -15,51 +15,51 @@ public class MyScanner extends BaseScanner {
         //assign
         transition("start",':',"double");
         transition("double",'=',"assign");
-        accept("assign",true);
+        accept("assign",false);
         //semicolon
         transition("start",';',"semicolon");
-        accept("semicolon",true);
+        accept("semicolon",false);
         //close
         transition("start",')',"close");
-        accept("close",true);
+        accept("close",false);
         //open
         transition("start",'(',"open");
-        accept("open",true);
+        accept("open",false);
         //mod
         transition("start",'%',"mod");
-        accept("mod",true);
+        accept("mod",false);
         //sub
         transition("start",'-',"sub");
-        accept("sub",true);
+        accept("sub",false);
         //add
         transition("start",'+',"add");
-        accept("add",true);
-        //numeral
-        transition("start",NUMBER,"numeral");
-        transition("numeral",NUMBER,"numeral");
-        accept("numeral",true);
-        //identifier
-        transition("start",except(LETTER,'p'),"identifier");
-        transition("identifier",LETTER,"identifier");
-        transition("identifier",NUMBER,"identifier");
-        accept("identifier",true);
+        accept("add",false);
+        //num
+        transition("start",NUMBER,"num");
+        transition("num",NUMBER,"num");
+        accept("num",true);
+        //id
+        transition("start",except(LETTER,'p'),"id");
+        transition("id",LETTER,"id");
+        transition("id",NUMBER,"id");
+        accept("id",true);
         //print
         transition("start",'p',"p");
         transition("p",'r',"r");
-        transition("p",except(LETTER,'r'),"identifier");
-        transition("p",NUMBER,"identifier");
+        transition("p",except(LETTER,'r'),"id");
+        transition("p",NUMBER,"id");
         transition("r",'i',"i");
-        transition("r",except(LETTER,'i'),"identifier");
-        transition("r",NUMBER,"identifier");
+        transition("r",except(LETTER,'i'),"id");
+        transition("r",NUMBER,"id");
         transition("i",'n',"n");
-        transition("i",except(LETTER,'n'),"identifier");
-        transition("i",NUMBER,"identifier");
+        transition("i",except(LETTER,'n'),"id");
+        transition("i",NUMBER,"id");
         transition("n",'t',"print");
-        transition("n",except(LETTER,'t'),"identifier");
-        transition("t",NUMBER,"identifier");
-        accept("print",true);
-        transition("print",LETTER,"identifier");
-        transition("print",NUMBER,"identifier");
+        transition("n",except(LETTER,'t'),"id");
+        transition("t",NUMBER,"id");
+        accept("print",false);
+        transition("print",LETTER,"id");
+        transition("print",NUMBER,"id");
 
     }
 
