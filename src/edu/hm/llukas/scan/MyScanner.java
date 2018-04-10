@@ -22,6 +22,12 @@ public class MyScanner extends BaseScanner {
         //close
         transition("start",')',"close");
         accept("close",false);
+        //mult
+        transition("start",'*',"mult");
+        accept("mult",false);
+        //close
+        transition("start",'/',"div");
+        accept("div",false);
         //open
         transition("start",'(',"open");
         accept("open",false);
@@ -56,10 +62,14 @@ public class MyScanner extends BaseScanner {
         transition("i",NUMBER,"id");
         transition("n",'t',"print");
         transition("n",except(LETTER,'t'),"id");
-        transition("t",NUMBER,"id");
+        transition("n",NUMBER,"id");
         accept("print",false);
         transition("print",LETTER,"id");
         transition("print",NUMBER,"id");
+        accept("p","id");
+        accept("r","id");
+        accept("i","id");
+        accept("n","id");
 
     }
 
