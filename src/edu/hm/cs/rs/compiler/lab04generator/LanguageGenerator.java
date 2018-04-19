@@ -1,4 +1,4 @@
-package edu.hm.llukas.generator;
+package edu.hm.cs.rs.compiler.lab04generator;
 
 /* (C) 2017, R. Schiedermeier, rs@cs.hm.edu
  * Java 1.8.0_121, Linux x86_64 4.8.15
