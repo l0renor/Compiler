@@ -81,4 +81,3 @@ public class MyGen implements LanguageGenerator {
 
     }
 }
-//6 =,S=,S=X,X=b,X=a,X=bX,X=aY,Y=aZ,Z=aZ,Z=bbL,Z=bbX,L=aL,L=bM,M=b,M=bM
