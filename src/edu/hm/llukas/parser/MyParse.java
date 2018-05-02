@@ -24,7 +24,7 @@ public class MyParse implements RDParserGenerator {
                     changed = first.get(rule).add(firstChar);
                 } else {
                     for (String[] compareRule : first.keySet()) {
-                        if (rule[0].equals(firstChar)) {
+                        if (compareRule[0].charAt(0)==(firstChar)) {
 
                             changed = first.get(rule).addAll(first.get(compareRule));
                         }
