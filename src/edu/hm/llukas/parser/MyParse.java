@@ -24,7 +24,7 @@ public class MyParse implements RDParserGenerator {
                     changed = first.get(rule).add(firstChar);
                 } else {
                     for (String[] compareRule : first.keySet()) {
-                        if (compareRule[0].charAt(0)==(firstChar)) {
+                        if (compareRule[0].charAt(0) == (firstChar)) {
 
                             changed = first.get(rule).addAll(first.get(compareRule));
                         }
@@ -39,6 +39,23 @@ public class MyParse implements RDParserGenerator {
 
     @Override
     public String generate(String grammar) {
+        Map<String[], Set<Character>> first = generateFist(parseGrammar(grammar));
+        char start = grammar.charAt(2);
+        String result = "import java.util.*; \n";
+        result += "public class RDParser" + start + " {\n";
+        result+= "public static void main(String... args) throws SyntaxErrorException {\n" +
+                "    Node parseTree = new RDParserS().parse(args[0]);\n" +
+                "    System.out.println(parseTree);  // Parsebaum in einer Zeile\n" +
+                "    parseTree.prettyPrint();        // Parsebaum gekippt, mehrzeilig\n" +
+                "}";
+        result+= getNodeSourcecode();
+        result+= getSyntaxErrorExceptionSourcecode();
+        result+= "public Node parse(String grammar){" +
+                "private char lookahead = getNextToken();" +
+                "";
+
+
+
         return null;
     }
 
