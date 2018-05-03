@@ -40,22 +40,44 @@ public class MyParse implements RDParserGenerator {
     @Override
     public String generate(String grammar) {
         Map<String[], Set<Character>> first = generateFist(parseGrammar(grammar));
+        Map<String,Map<String[], Set<Character>>> sortedFirst = new HashMap<>();
+        for(String[] rule: first.keySet()){
+            Set<Character> s = first.get(rule);
+            if(sortedFirst.containsKey(rule[0])){
+                sortedFirst.get(rule[0]).put(rule,first.get(rule));
+            }else {
+                sortedFirst.put(rule[0],new HashMap<>());
+                sortedFirst.get(rule[0]).put(rule,first.get(rule));
+            }
+        }
         char start = grammar.charAt(2);
         String result = "import java.util.*; \n";
         result += "public class RDParser" + start + " {\n";
-        result+= "public static void main(String... args) throws SyntaxErrorException {\n" +
+        result += "public static void main(String... args) throws SyntaxErrorException {\n" +
                 "    Node parseTree = new RDParserS().parse(args[0]);\n" +
                 "    System.out.println(parseTree);  // Parsebaum in einer Zeile\n" +
                 "    parseTree.prettyPrint();        // Parsebaum gekippt, mehrzeilig\n" +
                 "}";
-        result+= getNodeSourcecode();
-        result+= getSyntaxErrorExceptionSourcecode();
-        result+= "public Node parse(String grammar){" +
+        result += getNodeSourcecode();
+        result += getSyntaxErrorExceptionSourcecode();
+        result += "public Node parse(String grammar){" +
                 "grammar = grammar + \"$\";" +
                 "private char lookahead = getNextToken();" +
                 "";
 
+        result += "boolean terminal(char expected) {\n" +
+                "        if(lookahead != expected) {\n" +
+                "            System.out.println(\"syntax error: expected \" + expected + \"; found \" + lookahead);\n" +
+                "            return false;\n" +
+                "        }\n" +
+                "        lookahead = getNextToken();\n" +
+                "        return true;\n" +
+                "    }";
+        for(String[] rule : first.keySet()){
+            for(Character c : first.get(rule)){
 
+            }
+        }
 
         return null;
     }
@@ -73,9 +95,15 @@ public class MyParse implements RDParserGenerator {
 
     public static void main(String[] args) {
         MyParse p = new MyParse();
-        Map<String[], Set<Character>> m = p.generateFist(p.parseGrammar("=,A=B,B=b"));
+        //Map<String[], Set<Character>> m = p.generateFist(p.parseGrammar("=,A=B,A=c,B=b"));
+        p.generate("=,A=B,A=c,B=b");
         int i = 0;
         i++;
 
+    }
+
+    public String generateNonTerminalMethod(Set<Character> characterSet, String[] rule){
+        String res = "boolean"+ rule [0] + "(){";
+    return null;
     }
 }
