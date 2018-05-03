@@ -51,6 +51,7 @@ public class MyParse implements RDParserGenerator {
         result+= getNodeSourcecode();
         result+= getSyntaxErrorExceptionSourcecode();
         result+= "public Node parse(String grammar){" +
+                "grammar = grammar + \"$\";" +
                 "private char lookahead = getNextToken();" +
                 "";
 
