@@ -102,8 +102,16 @@ public class MyParse implements RDParserGenerator {
 
     }
 
-    public String generateNonTerminalMethod(Set<Character> characterSet, String[] rule){
-        String res = "boolean"+ rule [0] + "(){";
+    public String generateNonTerminalMethod(Map<String[], Set<Character>> rules, String nTerminal){
+        String res = "boolean"+ nTerminal + "(){";
+        res += "if(lookahead == \'" +
     return null;
     }
+    public String generateNonTerminalifBlock(String ableitung){
+        String res = "if(lookahead == \'" + ableitung.charAt(0) + "\'){";
+
+        return null;
+    }
+
+
 }

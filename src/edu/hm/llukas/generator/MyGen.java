@@ -75,7 +75,7 @@ public class MyGen implements LanguageGenerator {
         long start = System.currentTimeMillis();
         //System.out.println("HALLo".contains("[A-Z]"));
        // new MyGen().parseGrammar("=;S=();S=(S);S=()S;S=(S)S").forEach(strings -> System.out.println(strings[0] + "->" + strings[1]));
-        new MyGen().generate(new MyGen().parseGrammar("=,S=,S=X,X=b,X=a,X=bX,X=aY,Y=aZ,Z=aZ,Z=bbL,Z=bbX,L=aL,L=bM,M=b,M=bM"), 5).forEach(
+        new MyGen().generate(new MyGen().parseGrammar("=,S=,S=X,S=YX,Y=aA,Y=bB,Y=YaA,Y=YbB,Aa=aA,Ab=bA,AX=Xa,AX=a,Ba=aB,Bb=bB,BX=Xb,BX=b"), 8).forEach(
                 (x)-> System.out.println(x));
         System.out.println(start-System.currentTimeMillis());
 

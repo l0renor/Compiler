@@ -1,0 +1,6 @@
+=,S=X,S=,X=C,X=CC,X=Y,X=CY,X=YC,X=CYC,C=a,C=b,Y=YY,Y=a,Y=bb
+=,S=ASA,S=a,A=a,A=b
+=,S=X,S=,X=Ya,X=aY,X=YaY,X=a,Y=YY,Y=a,Y=c,Y=ab,Y=aYb,Y=ba
+=,S=[S],S=(S),S=SS,S=x,S=\M,S=S*,S=S+,M=|,M=(,M=),M=\,M=[,M=],M=+,M=*
+-,S-S.S,S-nAV,S-VSV,A-VAV,A-=,V-t,V-n
+=,S=,S=X,S=YX,Y=aA,Y=bB,Y=YaA,Y=YbB,Aa=aA,Ab=bA,AX=Xa,AX=a,Ba=aB,Bb=bB,BX=Xb,BX=b
