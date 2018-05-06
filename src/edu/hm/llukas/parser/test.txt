@@ -1,0 +1,18 @@
+node E(){
+if(lookahead == '(') {
+            Node n = new Node();
+             n.add(terminal('('))
+                   && E()
+                   && Op()
+                   && E()
+                   && terminal(')');
+        }
+        else if(lookahead == '1' || lookahead == 'a' || lookahead == '-') {
+            System.out.println("E: F");
+            return F();
+        }
+        else {
+            System.out.println("syntax error: expected one of (, 1, a, -; found " + lookahead);
+            return false;
+        }
+}

@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class MyParse implements RDParserGenerator {
+public class MyParsealt implements RDParserGenerator {
 
     private Map<String[], Set<Character>> generateFist(Stream<String[]> grammaStream) {
         List<String[]> gramma = grammaStream.collect(Collectors.toList());
@@ -52,41 +52,34 @@ public class MyParse implements RDParserGenerator {
         }
         char start = grammar.charAt(2);
         String result = "import java.util.*; \n";
-        result += "public class  RDParser" + start+ " {\n";
-        result += "String input;\n";
-        result += "char lookahead;\n";
-        result += "RDParser" + start + "(String input)throws SyntaxErrorException{" +
-                "this.input = input;\n" +
-                "lookahead = getNextToken();}\n ";
+        result += "public class RDParser" + start + " {\n";
         result += "public static void main(String... args) throws SyntaxErrorException {\n" +
-                "    Node parseTree = new RDParser"+ start + "(args[0]).parse();\n" +
+                "    Node parseTree = new RDParserS().parse(args[0]);\n" +
                 "    System.out.println(parseTree);  // Parsebaum in einer Zeile\n" +
                 "    parseTree.prettyPrint();        // Parsebaum gekippt, mehrzeilig\n" +
                 "}";
         result += getNodeSourcecode();
         result += getSyntaxErrorExceptionSourcecode();
-        result += "char getNextToken() {\n" +
-                "        if(input.length() == 0)\n" +
-                "            return '$';\n" +
-                "        char token = input.charAt(0);\n" +
-                "        input = input.substring(1);\n" +
-                "        return token;\n" +
-                "    }";
-        result += "Node terminal(char expected) throws SyntaxErrorException{\n" +
+        result += "public Node parse(String grammar){" +
+                "grammar = grammar + \"$\";" +
+                "private char lookahead = getNextToken();" +
+                "";
+
+        result += "boolean terminal(char expected) {\n" +
                 "        if(lookahead != expected) {\n" +
-                "            throw new SyntaxErrorException(\" syntax error: expected \" + expected + \" found \"  + lookahead);\n" +
+                "            System.out.println(\"syntax error: expected \" + expected + \"; found \" + lookahead);\n" +
+                "            return false;\n" +
                 "        }\n" +
                 "        lookahead = getNextToken();\n" +
-                "        return new Node(\"\"+expected,new Node[]{});\n" +
+                "        return true;\n" +
                 "    }";
-        result += "public Node parse() throws SyntaxErrorException{\n"+
-                "return " +start  +"();\n}\n";
+        for (String[] rule : first.keySet()) {
+            for (Character c : first.get(rule)) {
 
-        for (String nTerminal: sortedFirst.keySet()){
-            result += generateNonTerminalMethod(sortedFirst.get(nTerminal), nTerminal);
+            }
         }
-        result += "\n}";
-        return result;
+
+        return null;
     }
 
 
@@ -100,22 +93,28 @@ public class MyParse implements RDParserGenerator {
         });
     }
 
+    public static void main(String[] args) {
+        MyParsealt p = new MyParsealt();
+        //Map<String[], Set<Character>> m = p.generateFist(p.parseGrammar("=,A=B,A=c,B=b"));
+        // p.generate("=,A=B,A=c,B=b");
+        HashSet<Character> eins = new HashSet<Character>();
+        eins.add('(');
+        HashSet<Character> zwei = new HashSet<Character>();
+        zwei.add('n');
+        zwei.add('-');
+        Map<String[], Set<Character>> rules = new HashMap<>();
+        rules.put(new String[]{"E", "(EOE)"}, eins);
+        rules.put(new String[]{"E", "F"}, zwei);
+        System.out.println(p.generateNonTerminalMethod(rules,"E"));
 
+    }
 
     public String generateNonTerminalMethod(Map<String[], Set<Character>> rules, String nTerminal) {
-        String res = "Node " + nTerminal + "()throws SyntaxErrorException{\n";
-        res += "Node n = new Node(\""+ nTerminal + "\",new Node[]{});\n";
+        String res = "boolean" + nTerminal + "(){\n";
         for (String[] rule : rules.keySet()) {
             res += generateNonTerminalifBlock(rule,rules.get(rule));
-            res += "else ";
         }
-        res = res.substring(0,res.length()-5);
-        res += "else {throw new SyntaxErrorException(\" syntax error: expected one of (";
-        for (Set<Character> expected : rules.values()){
-            res += expected.toString();
-        }
-        res += ") found\"  + lookahead); }";
-        res += "\nreturn n;\n}\n";
+        res += "return false";
         return res;
     }
 
@@ -128,33 +127,18 @@ public class MyParse implements RDParserGenerator {
         }
         res = res.substring(0, res.length() - 2);
         res += "){\n";
+        res += "return ";
         for (int i = 0; i < ableitung[1].length(); i++) {
             if (Character.isUpperCase(ableitung[1].charAt(i))) {
-                res += "n.add("+ ableitung[1].charAt(i) + "());\n";
+                res += ableitung[1].charAt(i) + "()";
             } else {
-                res += "n.add(terminal(\'" + ableitung[1].charAt(i) + "\'));\n";
+                res += "terminal(\'" + ableitung[1].charAt(i) + "\')";
             }
+            res += "&&";
         }
-        //res += "return n";
-        res += "\n}";
+        res = res.substring(0, res.length() - 2);
+        res += ";\n}\n";
         return res;
-    }
-
-    public static void main(String[] args) {
-        MyParse p = new MyParse();
-        //Map<String[], Set<Character>> m = p.generateFist(p.parseGrammar("=,A=B,A=c,B=b"));
-        // p.generate("=,A=B,A=c,B=b");
-      /*  HashSet<Character> eins = new HashSet<Character>();
-        eins.add('(');
-        HashSet<Character> zwei = new HashSet<Character>();
-        zwei.add('n');
-        zwei.add('-');
-        Map<String[], Set<Character>> rules = new HashMap<>();
-        rules.put(new String[]{"E", "(EOE)"}, eins);
-        rules.put(new String[]{"E", "F"}, zwei);
-        System.out.println(p.generateNonTerminalMethod(rules,"E"));*/
-      System.out.println(p.generate("=,E=(EOE),E=F,O=+,O=-,F=n,F=-E"));
-
     }
 
 
