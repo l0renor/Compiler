@@ -153,7 +153,7 @@ public class MyParse implements RDParserGenerator {
         rules.put(new String[]{"E", "(EOE)"}, eins);
         rules.put(new String[]{"E", "F"}, zwei);
         System.out.println(p.generateNonTerminalMethod(rules,"E"));*/
-      System.out.println(p.generate("=,E=(EOE),E=F,O=+,O=-,F=n,F=-E"));
+      System.out.println(p.generate("=,B=C,C=c,B=D,D=d,B=E,E=e,B=F,F=f,B=G,G=g,B=H,H=h,B=I,I=i,B=J,J=j,B=K,K=k,B=L,L=l,B=M,M=m,B=N,N=n,B=O,O=o,B=P,P=p,B=Q,Q=q,B=R,R=r,B=S,S=s,B=T,T=t,B=U,U=u,B=V,V=v,B=W,W=w,B=X,X=x,B=Y,Y=y,B=Z,Z=z"));
 
     }
 

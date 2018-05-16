@@ -25,6 +25,9 @@ public class MyScanner extends BaseScanner {
         //mult
         transition("start",'*',"mult");
         accept("mult",false);
+        //potenz
+        transition("mult",'*',"potenz");
+        accept("potenz",false);
         //close
         transition("start",'/',"div");
         accept("div",false);
