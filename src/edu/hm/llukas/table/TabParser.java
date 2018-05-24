@@ -23,8 +23,8 @@ public class TabParser extends LL1TableParser {
         final String EMPTY = "";
         final String PRINT = "print";
         final String ASSIGN = "assign";
-        final String IDENTIFIER = "id";
-        final String NUMERAL = "num";
+        final String IDENTIFIER = "identifier";
+        final String NUMERAL = "numeral";
         final String ADD = "add";
         final String SUB = "sub";
         final String DIV = "div";
@@ -61,9 +61,10 @@ public class TabParser extends LL1TableParser {
         matrix(SUB, EXPRESSION, TERM + " " + EXPRESSION2);
         matrix(IDENTIFIER, EXPRESSION, TERM + " " + EXPRESSION2);
         matrix(NUMERAL, EXPRESSION, TERM + " " + EXPRESSION2);
-        matrix(ADD, EXPRESSION2, ADDSUB + " " + EXPRESSION2);
-        matrix(SUB, EXPRESSION2, ADDSUB + " " + EXPRESSION2);
+        matrix(ADD, EXPRESSION2, ADDSUB +  " " + EXPRESSION2);
+        matrix(SUB, EXPRESSION2, ADDSUB +  " " + EXPRESSION2);
         matrix(SEMICOLON, EXPRESSION2, EMPTY);
+        matrix(CLOSE, EXPRESSION2, EMPTY);
         matrix(ADD, ADDSUB, ADD + " " + TERM);
         matrix(SUB, ADDSUB, SUB + " " + TERM);
         matrix(OPEN,TERM,POW +" "+ TERM2);
@@ -75,6 +76,10 @@ public class TabParser extends LL1TableParser {
         matrix(DIV,TERM2,POINTOP + " " + TERM2);
         matrix(MOD,TERM2,POINTOP + " " + TERM2);
         matrix(SEMICOLON,TERM2,EMPTY);
+        matrix(ADD,TERM2,EMPTY);
+        matrix(SUB,TERM2,EMPTY);
+        matrix(CLOSE,TERM2,EMPTY);
+
         matrix(MULT,POINTOP,MULT + " " + POW);
         matrix(DIV,POINTOP,DIV + " " + POW);
         matrix(MOD,POINTOP,MOD + " " + POW);
@@ -83,12 +88,15 @@ public class TabParser extends LL1TableParser {
         matrix(SUB,POW,Factor + " " + POW2);
         matrix(IDENTIFIER,POW,Factor + " " + POW2);
         matrix(NUMERAL,POW,Factor + " " + POW2);
+        matrix(ADD,POW2,EMPTY);
+        matrix(SUB,POW2,EMPTY);
         matrix(MULT,POW2,EMPTY);
         matrix(DIV,POW2,EMPTY);
+        matrix(CLOSE,POW2,EMPTY);
         matrix(MOD,POW2,EMPTY);
         matrix(OPEN,POW2,EMPTY);
         matrix(SEMICOLON,POW2,EMPTY);
-        matrix(POT,POW2,POT + " " + Factor + POW2);
+        matrix(POT,POW2,POT + " " + Factor + " " +POW2);
         matrix(OPEN,Factor, OPEN + " "+ EXPRESSION + " " + CLOSE);
         matrix(ADD,Factor, ADD +" " + Factor);
         matrix(SUB,Factor, SUB +" " + Factor);

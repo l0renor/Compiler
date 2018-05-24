@@ -43,36 +43,36 @@ public class MyScanner extends BaseScanner {
         //add
         transition("start",'+',"add");
         accept("add",false);
-        //num
-        transition("start",NUMBER,"num");
-        transition("num",NUMBER,"num");
-        accept("num",true);
-        //id
-        transition("start",except(LETTER,'p'),"id");
-        transition("id",LETTER,"id");
-        transition("id",NUMBER,"id");
-        accept("id",true);
+        //numeral
+        transition("start",NUMBER,"numeral");
+        transition("numeral",NUMBER,"numeral");
+        accept("numeral",true);
+        //identifier
+        transition("start",except(LETTER,'p'),"identifier");
+        transition("identifier",LETTER,"identifier");
+        transition("identifier",NUMBER,"identifier");
+        accept("identifier",true);
         //print
         transition("start",'p',"p");
         transition("p",'r',"r");
-        transition("p",except(LETTER,'r'),"id");
-        transition("p",NUMBER,"id");
+        transition("p",except(LETTER,'r'),"identifier");
+        transition("p",NUMBER,"identifier");
         transition("r",'i',"i");
-        transition("r",except(LETTER,'i'),"id");
-        transition("r",NUMBER,"id");
+        transition("r",except(LETTER,'i'),"identifier");
+        transition("r",NUMBER,"identifier");
         transition("i",'n',"n");
-        transition("i",except(LETTER,'n'),"id");
-        transition("i",NUMBER,"id");
+        transition("i",except(LETTER,'n'),"identifier");
+        transition("i",NUMBER,"identifier");
         transition("n",'t',"print");
-        transition("n",except(LETTER,'t'),"id");
-        transition("n",NUMBER,"id");
+        transition("n",except(LETTER,'t'),"identifier");
+        transition("n",NUMBER,"identifier");
         accept("print",false);
-        transition("print",LETTER,"id");
-        transition("print",NUMBER,"id");
-        accept("p","id");
-        accept("r","id");
-        accept("i","id");
-        accept("n","id");
+        transition("print",LETTER,"identifier");
+        transition("print",NUMBER,"identifier");
+        accept("p","identifier");
+        accept("r","identifier");
+        accept("i","identifier");
+        accept("n","identifier");
 
     }
 
