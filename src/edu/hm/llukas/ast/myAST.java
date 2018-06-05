@@ -38,7 +38,7 @@ public class myAST extends TreeWalker implements ASTGenerator {
     final String POT = "pot";
     final String POW = "Pow";
     final String POW2 = "Pow2";
-    public final Stack<Tree> treeStack = new Stack();
+    public final Stack<Tree> treeStack = new Stack<Tree>();
 
     public myAST() {
         up(NUMERAL, node -> {
@@ -49,7 +49,7 @@ public class myAST extends TreeWalker implements ASTGenerator {
         });
         up(OUTPUT, node -> {
             Tree astElement = treeStack.pop();
-            Tree out = new Tree(OUTPUT);
+            Tree out = new Tree("output");
             out.addChild(astElement);
 
             treeStack.push(out);
@@ -113,7 +113,7 @@ public class myAST extends TreeWalker implements ASTGenerator {
                 return;
             }
 
-            Tree node2 = new Tree(PROGRAM);
+            Tree node2 = new Tree("program");
 
             List<Tree> children = new ArrayList<>();
             int size = treeStack.size();
