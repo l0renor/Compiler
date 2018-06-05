@@ -48,6 +48,9 @@ public class myAST extends TreeWalker implements ASTGenerator {
             treeStack.push(node);
         });
         up(OUTPUT, node -> {
+            if(node.getChild(1).numberOfChildren() ==1){
+                return;
+            }
             Tree astElement = treeStack.pop();
             Tree out = new Tree("output");
             out.addChild(astElement);
