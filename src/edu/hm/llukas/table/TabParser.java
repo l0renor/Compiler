@@ -38,8 +38,8 @@ public class TabParser extends LL1TableParser {
         final String POW2 = "Pow2";
 
 
-        setHtmlTrace(true);
-        verbose(true);
+        //setHtmlTrace(true);
+        //verbose(true);
 
         matrix("$", PROGRAM, "");
         matrix(PRINT, PROGRAM, STATEMENT + " " + PROGRAM);

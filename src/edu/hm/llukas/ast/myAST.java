@@ -11,20 +11,14 @@ import java.util.Stack;
 
 public class myAST extends TreeWalker implements ASTGenerator {
     final String PROGRAM = "Programm";
-    final String STATEMENT = "Statement";
     final String OUTPUT = "Output";
-    final String PBODY = "Pbody";
     final String ASSIGNMENT = "Assignment";
-    final String EXPRESSION = "Expression";
-    final String EXPRESSION2 = "Expression2";
+
     final String ADDSUB = "Addsub";
-    final String TERM = "Term";
-    final String TERM2 = "Term2";
+
     final String POINTOP = "Pointop";
     final String Factor = "Factor";
-    final String EMPTY = "";
-    final String PRINT = "print";
-    final String ASSIGN = "assign";
+
     final String IDENTIFIER = "identifier";
     final String NUMERAL = "numeral";
     final String ADD = "add";
@@ -32,23 +26,24 @@ public class myAST extends TreeWalker implements ASTGenerator {
     final String DIV = "div";
     final String MULT = "mult";
     final String MOD = "mod";
-    final String OPEN = "open";
-    final String CLOSE = "close";
-    final String SEMICOLON = "semicolon";
+
     final String POT = "pot";
     final String POW = "Pow";
     final String POW2 = "Pow2";
     public final Stack<Tree> treeStack = new Stack<Tree>();
 
     public myAST() {
+        //setHtmlOutput(true);
+        //verbose(true);
+
         up(NUMERAL, node -> {
-            treeStack.push(node);
+            treeStack.push(node.clone());
         });
         up(IDENTIFIER, node -> {
-            treeStack.push(node);
+            treeStack.push(node.clone());
         });
         up(OUTPUT, node -> {
-            if(node.getChild(1).numberOfChildren() ==1){
+            if (node.getChild(1).numberOfChildren() == 1) {
                 return;
             }
             Tree astElement = treeStack.pop();
@@ -62,8 +57,8 @@ public class myAST extends TreeWalker implements ASTGenerator {
             Tree node2 = new Tree(node.getChild(0).getType());
             Tree op1 = treeStack.pop();
             Tree op2 = treeStack.pop();
-            node2.addChild(op1);
             node2.addChild(op2);
+            node2.addChild(op1);
 
             treeStack.push(node2);
         });
@@ -72,8 +67,8 @@ public class myAST extends TreeWalker implements ASTGenerator {
             Tree node2 = new Tree(node.getChild(0).getType());
             Tree op1 = treeStack.pop();
             Tree op2 = treeStack.pop();
-            node2.addChild(op1);
             node2.addChild(op2);
+            node2.addChild(op1);
             treeStack.push(node2);
         });
 
@@ -138,6 +133,6 @@ public class myAST extends TreeWalker implements ASTGenerator {
     @Override
     public Tree analyze(Tree tree) throws SemanticError {
         walk(tree);
-        return treeStack.peek();
+        return treeStack.pop();
     }
 }
