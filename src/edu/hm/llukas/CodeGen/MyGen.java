@@ -3,7 +3,17 @@ package edu.hm.llukas.CodeGen;
 import edu.hm.cs.rs.compiler.toys.compiler.BaseCodeGenerator;
 import edu.hm.cs.rs.compiler.toys.compiler.Code;
 import edu.hm.cs.rs.compiler.toys.compiler.Instruction;
-
+/*edu.hm.llukas.prae.CommentOut
+edu.hm.llukas.scan.MyScanner
+        edu.hm.llukas.table.TabParser
+        edu.hm.llukas.ast.myAST
+        edu.hm.llukas.CodeGen.MyGen
+        edu.hm.cs.rs.compiler.toys.compiler.NullBackPatcher
+        edu.hm.cs.rs.compiler.toys.compiler.Javascript
+        edu.hm.cs.rs.compiler.toys.compiler.LoadHtml
+        source.txt
+        -w
+*/
 public class MyGen extends BaseCodeGenerator {
 
     public MyGen(Code code) {
